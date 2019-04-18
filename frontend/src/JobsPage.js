@@ -1,4 +1,5 @@
 import React from 'react';
+import { Header } from 'semantic-ui-react'
 
 import SemanticTable from './components/SemanticTable';
 import LoadingPlaceholder from './components/LoadingPlaceholder';
@@ -54,11 +55,12 @@ class SubmissionTable extends React.Component {
     // TODO: Better way for children to access 'columns' rather than copying(?) to each?
     return (
       <div className="SubmissionTable">
-      {data ? (
-        <SemanticTable columns={columns} data={data} />
-      ) : (
-        <LoadingPlaceholder />
-      )}
+        <Header as='h1'>Jobs</Header>
+        {data ? (
+          <SemanticTable columns={columns} data={data} />
+        ) : (
+          <LoadingPlaceholder />
+        )}
       </div>
     )
   }

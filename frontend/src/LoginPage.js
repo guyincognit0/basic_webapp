@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react'
+import { Form, Header } from 'semantic-ui-react'
 
 
 class LoginPage extends React.Component {
@@ -37,6 +37,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
+        <Header as='h1'>Login</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label='Username'

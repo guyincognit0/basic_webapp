@@ -1,6 +1,5 @@
 import React from 'react';
-import { Icon, Label, Menu, Table } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import { Table } from 'semantic-ui-react'
 
 
 function SemanticTable(props) {
