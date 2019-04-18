@@ -63,6 +63,8 @@ class MenuComponent extends React.Component {
             />
             <Menu.Item
               name='logout'
+              as={Link}
+              to='/logout'
               active={activeItem === 'logout'}
               onClick={this.handleItemClick}
             />
