@@ -17,7 +17,6 @@ class Login(rest_framework.views.APIView):
     '''
     permission_classes = (rest_framework.permissions.AllowAny,)
     serializer_class = backend.serialisers.LoginSerialiser
-    parser_classes = (JSONParser,)
 
     def post(self, request, format=None):
         username = request.data.get('username') or request.user
