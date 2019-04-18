@@ -5,8 +5,11 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-    "react-table": "^6.9.2"
+    "react-table": "^6.9.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.86.0"
   },
   "scripts": {
     "dev": "webpack --mode development ./src/index.js --output ./static/frontend/main.js",
