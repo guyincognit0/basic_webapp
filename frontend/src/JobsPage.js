@@ -1,11 +1,12 @@
 import React from 'react';
 
 import SemanticTable from './components/SemanticTable';
+import LoadingPlaceholder from './components/LoadingPlaceholder';
 
 
 function JobsPage() {
   return (
-    <div className="App">
+    <div>
       <SubmissionTable />
     </div>
   );
@@ -56,7 +57,7 @@ class SubmissionTable extends React.Component {
       {data ? (
         <SemanticTable columns={columns} data={data} />
       ) : (
-        <p>loading...</p>
+        <LoadingPlaceholder />
       )}
       </div>
     )

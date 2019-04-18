@@ -2,6 +2,7 @@ import django.contrib.auth
 import rest_framework
 import rest_framework.generics
 import rest_framework.views
+from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -16,10 +17,11 @@ class Login(rest_framework.views.APIView):
     '''
     permission_classes = (rest_framework.permissions.AllowAny,)
     serializer_class = backend.serialisers.LoginSerialiser
+    parser_classes = (JSONParser,)
 
     def post(self, request, format=None):
-        username = request.POST.get('username') or request.user
-        password = request.POST.get('password')
+        username = request.data.get('username') or request.user
+        password = request.data.get('password')
         user = django.contrib.auth.authenticate(request, username=username, password=password)
         if user is not None:
             django.contrib.auth.login(request, user)
