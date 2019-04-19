@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
+import { setUser } from './store/actions'
 
-class LoginPage extends React.Component {
+
+class LoginPageComponent extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -26,6 +29,8 @@ class LoginPage extends React.Component {
         'password': this.state.password
       })
     });
+    // TODO: check HTTP status
+    this.props.setUser(this.state.username);
   }
 
   handleInputChange(event) {
@@ -56,5 +61,17 @@ class LoginPage extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { user: state.user };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: user => dispatch(setUser(user))
+  };
+}
+
+const LoginPage = connect(mapStateToProps, mapDispatchToProps)(LoginPageComponent);
 
 export default LoginPage;
