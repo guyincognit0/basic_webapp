@@ -24,7 +24,9 @@ class Login(rest_framework.views.APIView):
         user = django.contrib.auth.authenticate(request, username=username, password=password)
         if user is not None:
             django.contrib.auth.login(request, user)
-            return Response(status=status.HTTP_200_OK)
+            response = Response(status=status.HTTP_200_OK)
+            response.set_cookie('username', username)
+            return response
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -35,7 +37,11 @@ class Logout(rest_framework.views.APIView):
     '''
     def get(self, request, format=None):
         django.contrib.auth.logout(request)
-        return Response(status=status.HTTP_200_OK)
+        if 'username' in request.COOKIES:
+            del request.COOKIES['username']
+        response = Response(status=status.HTTP_200_OK)
+        response.delete_cookie('username')
+        return response
 
 
 class CreateSubmission(rest_framework.generics.ListCreateAPIView):

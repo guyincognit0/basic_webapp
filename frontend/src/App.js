@@ -1,6 +1,5 @@
 import React from 'react';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from 'semantic-ui-react'
 
@@ -13,17 +12,32 @@ import SignupPage from './SignupPage'
 
 import MenuComponent from './components/MenuComponent'
 
-import rootReducer from './store/reducers'
+import { setUser } from './store/actions'
 
-// TEMP: debugging
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+// https://stackoverflow.com/questions/10730362/get-cookie-by-name
+function getCookie(name) {
+  const value = "; " + document.cookie;
+  const parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
-function App() {
-  return (
-    <Provider store={store}>
+class AppComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+    };
+  }
+
+  componentDidMount() {
+    const username = getCookie('username');
+    if (username) {
+      this.props.setUser(username);
+    }
+  }
+
+  render() {
+    return (
       <Router>
         <MenuComponent />
         <Container text style={{ marginTop: '7em' }}>
@@ -35,8 +49,20 @@ function App() {
           <Route path="/signup" component={SignupPage} />
         </Container>
       </Router>
-    </Provider>
-  );
+    );
+  }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: user => dispatch(setUser(user))
+  };
+}
+
+function mapStateToProps(state) {
+  return { user: state.user };
+};
+
+const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);
 
 export default App;

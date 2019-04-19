@@ -1,13 +1,15 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { withRouter, BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 class MenuComponent extends React.Component {
   constructor(props) {
+    const page = props.location.pathname.replace('/', '');
+
     super(props);
     this.state = {
-      activeItem:  'home'
+        activeItem: page.length > 0 ? page : 'home',
     };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
@@ -75,4 +77,4 @@ class MenuComponent extends React.Component {
   }
 }
 
-export default MenuComponent
+export default withRouter(MenuComponent);
