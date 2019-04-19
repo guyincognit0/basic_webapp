@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { Form, Header } from 'semantic-ui-react'
 
 import { setUser } from './store/actions'
@@ -10,15 +11,17 @@ class LoginPage extends React.Component {
     super();
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      redirect: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleSubmit(event) {
+  // Must use async/await to fully complete login via fetch POST
+  async handleSubmit(event) {
     event.preventDefault();
-    fetch('/api/v1/login/', {
+    await fetch('/api/v1/login/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -31,6 +34,7 @@ class LoginPage extends React.Component {
     });
     // TODO: check HTTP status
     this.props.setUser(this.state.username);
+    this.setState({ redirect: true });
   }
 
   handleInputChange(event) {
@@ -40,6 +44,14 @@ class LoginPage extends React.Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      const pathState = this.props.location.state;
+      const path = pathState ? pathState.from : '/';
+      return(<Redirect to={path} />);
+    }
+
     return (
       <div>
         <Header as='h1'>Login</Header>

@@ -11,8 +11,10 @@ import LogoutPage from './LogoutPage'
 import SignupPage from './SignupPage'
 
 import MenuComponent from './components/MenuComponent'
+import PrivateRoute from './components/PrivateRoute'
 
 import { setUser } from './store/actions'
+
 
 // https://stackoverflow.com/questions/10730362/get-cookie-by-name
 function getCookie(name) {
@@ -41,8 +43,8 @@ class App extends React.Component {
         <MenuComponent is_authed={is_authed} />
         <Container text style={{ marginTop: '7em' }}>
           <Route exact path="/" component={HomePage} />
-          <Route path="/jobs" component={JobsPage} />
-          <Route path="/submit" component={SubmitPage} />
+          <PrivateRoute path="/submit" component={SubmitPage} />
+          <PrivateRoute path="/jobs" component={JobsPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/logout" component={LogoutPage} />
           <Route path="/signup" component={SignupPage} />
