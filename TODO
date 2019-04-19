@@ -1,0 +1,3 @@
+## frontend
+* active menu item after redirect
+* honour/ fix is_authed state on PrivateRoute pages after app reload (i.e. jobs, submissions)
