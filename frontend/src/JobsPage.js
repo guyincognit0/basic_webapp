@@ -39,7 +39,7 @@ class SubmissionTable extends React.Component {
         accessor: 'name',
       },
       {
-        name: 'filename',
+        name: 'Filename',
         accessor: 'input_file',
       },
       {
@@ -52,7 +52,6 @@ class SubmissionTable extends React.Component {
       },
     ];
 
-    // TODO: Better way for children to access 'columns' rather than copying(?) to each?
     return (
       <div className="SubmissionTable">
         <Header as='h1'>Jobs</Header>
