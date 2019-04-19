@@ -21,12 +21,9 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-class AppComponent extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: '',
-    };
   }
 
   componentDidMount() {
@@ -37,9 +34,11 @@ class AppComponent extends React.Component {
   }
 
   render() {
+    const is_authed = Boolean(this.props.username);
+
     return (
       <Router>
-        <MenuComponent />
+        <MenuComponent is_authed={is_authed} />
         <Container text style={{ marginTop: '7em' }}>
           <Route exact path="/" component={HomePage} />
           <Route path="/jobs" component={JobsPage} />
@@ -60,9 +59,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { username: state.user };
 };
 
-const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

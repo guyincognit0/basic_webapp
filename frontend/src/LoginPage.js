@@ -5,7 +5,7 @@ import { Form, Header } from 'semantic-ui-react'
 import { setUser } from './store/actions'
 
 
-class LoginPageComponent extends React.Component {
+class LoginPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -72,6 +72,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const LoginPage = connect(mapStateToProps, mapDispatchToProps)(LoginPageComponent);
-
-export default LoginPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

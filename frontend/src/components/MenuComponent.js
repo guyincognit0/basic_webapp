@@ -21,7 +21,8 @@ class MenuComponent extends React.Component {
   }
 
   render() {
-    const { activeItem } = this.state
+    const { activeItem } = this.state;
+    const { is_authed } = this.props;
 
     // TODO: conditionally render login and logout/signup
     return (
@@ -49,27 +50,32 @@ class MenuComponent extends React.Component {
             onClick={this.handleItemClick}
           />
           <Menu.Menu position='right'>
-            <Menu.Item
-              name='login'
-              as={Link}
-              to='/login'
-              active={activeItem === 'login'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name='signup'
-              as={Link}
-              to='/signup'
-              active={activeItem === 'signup'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name='logout'
-              as={Link}
-              to='/logout'
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-            />
+            {is_authed ? (
+              <Menu.Item
+                name='logout'
+                as={Link}
+                to='/logout'
+                active={activeItem === 'logout'}
+                onClick={this.handleItemClick}
+              />
+            ) : (
+              <>
+                <Menu.Item
+                    name='login'
+                    as={Link}
+                    to='/login'
+                    active={activeItem === 'login'}
+                    onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                    name='signup'
+                    as={Link}
+                    to='/signup'
+                    active={activeItem === 'signup'}
+                    onClick={this.handleItemClick}
+                />
+              </>
+            )}
           </Menu.Menu>
         </Menu>
       </div>
