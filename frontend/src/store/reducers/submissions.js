@@ -1,19 +1,6 @@
-import { combineReducers } from 'redux'
-import { connectRouter } from 'connected-react-router'
+import { SUBMISSIONS_SET,
+         SUBMISSIONS_SORT } from '../actions'
 
-import { SET_USER ,
-         SUBMISSIONS_SET,
-         SUBMISSIONS_SORT } from './actions'
-
-
-function user(state = 'nouser', action) {
-  switch (action.type) {
-    case SET_USER:
-      return action.payload;
-    default:
-      return state;
-  }
-}
 
 function submissions(state = [], action) {
   switch (action.type) {
@@ -43,12 +30,5 @@ function submissions(state = [], action) {
   }
 }
 
-function rootReducer(history) {
-  return combineReducers({
-    router: connectRouter(history),
-    submissions,
-    user,
-  });
-}
 
-export default rootReducer
+export default submissions;
