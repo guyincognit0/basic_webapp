@@ -1,13 +1,22 @@
-import { SET_USER } from '../actions'
+import { SET_USER,
+         UNSET_USER } from '../actions'
 
 
-function user(state = 'nouser', action) {
+function auth(state = {user: '', is_authed: false}, action) {
   switch (action.type) {
     case SET_USER:
-      return action.payload;
+      return {
+        user: action.payload.user,
+        is_authed: true,
+      };
+    case UNSET_USER:
+      return {
+        user: '',
+        is_authed: false,
+      };
     default:
       return state;
   }
 }
 
-export default user;
+export default auth;

@@ -13,7 +13,7 @@ import SignupPage from './SignupPage'
 import MenuComponent from './components/MenuComponent'
 import PrivateRoute from './components/PrivateRoute'
 
-import { setUser } from './store/actions'
+import { setUser, unsetUser } from './store/actions'
 
 
 // https://stackoverflow.com/questions/10730362/get-cookie-by-name
@@ -31,18 +31,16 @@ class App extends React.Component {
   componentDidMount() {
     const username = getCookie('username');
     if (username) {
-      this.props.setUser(username);
+      this.props.setUser({ user: username });
     } else {
-      this.props.setUser('');
+      this.props.unsetUser();
     }
   }
 
   render() {
-    const is_authed = Boolean(this.props.username);
-
     return (
       <>
-        <MenuComponent is_authed={is_authed} />
+        <MenuComponent />
         <Container text style={{ marginTop: '7em' }}>
           <Route exact path="/" component={HomePage} />
           <PrivateRoute path="/submit" component={SubmitPage} />
@@ -56,14 +54,11 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { username: state.user };
-};
-
 function mapDispatchToProps(dispatch) {
   return {
-    setUser: user => dispatch(setUser(user))
+    setUser: user => dispatch(setUser(user)),
+    unsetUser: user => dispatch(unsetUser(user))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: Component, is_authed, ...rest }) => {
 }
 
 function mapStateToProps(state) {
-  return { is_authed: Boolean(state.user) };
-};
+  return { is_authed: state.auth.is_authed };
+}
 
 export default connect(mapStateToProps)(PrivateRoute);

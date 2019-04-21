@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Header } from 'semantic-ui-react'
 
-import { setUser } from './store/actions'
+import { unsetUser } from './store/actions'
 
 
 class LogoutPage extends React.Component {
@@ -10,7 +10,7 @@ class LogoutPage extends React.Component {
   componentDidMount() {
     fetch('api/v1/logout/');
     // TODO: check HTTP status
-    this.props.setUser('');
+    this.props.unsetUser();
   }
 
   render() {
@@ -48,7 +48,7 @@ class LogoutPage extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUser: user => dispatch(setUser(user))
+    unsetUser: user => dispatch(unsetUser(user))
   };
 }
 

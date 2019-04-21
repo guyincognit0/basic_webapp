@@ -76,7 +76,10 @@ class MenuComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { pathname: state.router.location.pathname };
-};
+  return {
+    is_authed: state.auth.is_authed,
+    pathname: state.router.location.pathname,
+  };
+}
 
 export default connect(mapStateToProps)(MenuComponent);

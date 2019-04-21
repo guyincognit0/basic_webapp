@@ -33,7 +33,7 @@ class LoginPage extends React.Component {
       })
     });
     // TODO: check HTTP status
-    this.props.setUser(this.state.username);
+    this.props.setUser({ user: this.state.username });
     this.setState({ redirect: true });
   }
 
