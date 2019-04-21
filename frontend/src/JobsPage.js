@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Header } from 'semantic-ui-react'
 
 import SemanticTable from './components/SemanticTable';
 import LoadingPlaceholder from './components/LoadingPlaceholder';
+
+import { submissionsSet } from './store/actions'
 
 
 function JobsPage() {
@@ -16,19 +19,16 @@ function JobsPage() {
 class SubmissionTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: null
-    };
   }
 
   componentDidMount() {
     fetch('api/v1/submission_list/')
       .then(response => response.json())
-      .then(data => this.setState({ data: data }));
+      .then(data => this.props.submissionsSet({ data: data }));
   }
 
   render () {
-    const { data } = this.state;
+    const { data } = this.props;
     const columns = [
       {
         name: 'ID',
@@ -56,7 +56,7 @@ class SubmissionTable extends React.Component {
       <div className="SubmissionTable">
         <Header as='h1'>Jobs</Header>
         {data ? (
-          <SemanticTable columns={columns} data={data} />
+          <SemanticTable columns={columns} />
         ) : (
           <LoadingPlaceholder />
         )}
@@ -65,4 +65,14 @@ class SubmissionTable extends React.Component {
   }
 }
 
-export default SubmissionTable;
+function mapStateToProps(state) {
+  return { data: state.submissions.data };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    submissionsSet: data => dispatch(submissionsSet(data))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionTable);

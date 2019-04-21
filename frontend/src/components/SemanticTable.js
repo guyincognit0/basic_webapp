@@ -1,40 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
+
+import { submissionsSort } from '../store/actions'
 
 
 class SemanticTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // Parent state should only ever change on mount
-      data: props.data,
-      column: null,
-      direction: null,
-    };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(columnClicked) {
-    const { data, column, direction } = this.state;
-
-    if (columnClicked !== column) {
-      const accessor = this.props.columns.find(cd => cd.name === columnClicked).accessor;
-      this.setState({
-        data: data.sort((a, b) => a[accessor] < b[accessor] ? 1 : -1),
-        column: columnClicked,
-        direction: 'ascending',
-      });
-    } else {
-      this.setState({
-        data: data.reverse(),
-        column: columnClicked,
-        direction: direction === 'ascending' ? 'descending' : 'ascending',
-      });
-    }
+    this.props.submissionsSort({ sortKey: columnClicked });
   }
 
   render() {
-    const { data, column, direction } = this.state;
+    const { data, column, direction } = this.props;
 
     return (
       <Table sortable celled>
@@ -42,8 +24,8 @@ class SemanticTable extends React.Component {
           <Table.Row>
             {this.props.columns.map(c => (
               <Table.HeaderCell
-                sorted={c.name == column ? direction : null}
-                onClick={() => this.handleClick(c.name)}
+                sorted={c.accessor == column ? direction : null}
+                onClick={() => this.handleClick(c.accessor)}
               >
                 {c.name}
               </Table.HeaderCell>
@@ -77,4 +59,18 @@ function Footer(props) {
   );
 }
 
-export default SemanticTable;
+function mapStateToProps(state) {
+  return {
+    data: state.submissions.data,
+    column: state.submissions.sortKey,
+    direction: state.submissions.direction,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    submissionsSort: sortKey => dispatch(submissionsSort(sortKey))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SemanticTable);
