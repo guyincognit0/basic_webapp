@@ -74,14 +74,10 @@ class LoginPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { user: state.user };
-};
-
 function mapDispatchToProps(dispatch) {
   return {
     setUser: user => dispatch(setUser(user))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

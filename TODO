@@ -1,5 +1,4 @@
 ## frontend
-* honour/ fix is_authed state on PrivateRoute pages after app reload (i.e. jobs, submissions)
 * use redux state for job submissions
 * fix placeholder for job submissions
 * always have scroll bar

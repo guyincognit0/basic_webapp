@@ -54,14 +54,14 @@ class App extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return { username: state.user };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     setUser: user => dispatch(setUser(user))
   };
 }
-
-function mapStateToProps(state) {
-  return { username: state.user };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
