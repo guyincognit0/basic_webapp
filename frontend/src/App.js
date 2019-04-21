@@ -39,7 +39,7 @@ class App extends React.Component {
     const is_authed = Boolean(this.props.username);
 
     return (
-      <Router>
+      <>
         <MenuComponent is_authed={is_authed} />
         <Container text style={{ marginTop: '7em' }}>
           <Route exact path="/" component={HomePage} />
@@ -49,7 +49,7 @@ class App extends React.Component {
           <Route path="/logout" component={LogoutPage} />
           <Route path="/signup" component={SignupPage} />
         </Container>
-      </Router>
+      </>
     );
   }
 }

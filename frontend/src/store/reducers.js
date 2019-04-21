@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
 
 import { SET_USER } from './actions'
 
@@ -12,8 +13,11 @@ function user(state = '', action) {
   }
 }
 
-const rootReducer = combineReducers({
-  user
-})
+function rootReducer(history) {
+  return combineReducers({
+    router: connectRouter(history),
+    user
+  });
+}
 
 export default rootReducer

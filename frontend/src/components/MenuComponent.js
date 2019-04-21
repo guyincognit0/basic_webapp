@@ -1,30 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import { Menu } from 'semantic-ui-react'
-import { withRouter, BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 class MenuComponent extends React.Component {
   constructor(props) {
-    const page = props.location.pathname.replace('/', '');
-
     super(props);
-    this.state = {
-        activeItem: page.length > 0 ? page : 'home',
-    };
-    this.handleItemClick = this.handleItemClick.bind(this);
-  }
-
-  handleItemClick(event, data) {
-    this.setState({
-      activeItem: data.name
-    });
   }
 
   render() {
-    const { activeItem } = this.state;
     const { is_authed } = this.props;
 
-    // TODO: conditionally render login and logout/signup
+    // TODO: handle complex URLs
+    const page = this.props.pathname.replace('/', '');
+    const activeItem = page.length > 0 ? page : 'home';
+
     return (
       <div>
         <Menu pointing secondary>
@@ -83,4 +75,8 @@ class MenuComponent extends React.Component {
   }
 }
 
-export default withRouter(MenuComponent);
+function mapStateToProps(state) {
+  return { pathname: state.router.location.pathname };
+};
+
+export default connect(mapStateToProps)(MenuComponent);
