@@ -1,5 +1,4 @@
 ## frontend
 * use redux state for job submissions
-* fix placeholder for job submissions
 * always have scroll bar
 * disallow navigation to logout if not authenticated
