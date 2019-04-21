@@ -1,5 +1,4 @@
 ## frontend
-!* previously set default redux state for user to fix early and unecessary redirect but this has resulted allowing unauthed clients accessing private routers
 * use redux state for job submissions
 * always have scroll bar
 * disallow navigation to logout if not authenticated

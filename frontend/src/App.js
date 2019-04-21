@@ -32,6 +32,8 @@ class App extends React.Component {
     const username = getCookie('username');
     if (username) {
       this.props.setUser(username);
+    } else {
+      this.props.setUser('');
     }
   }
 
